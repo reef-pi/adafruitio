@@ -1,0 +1,64 @@
+[
+  {
+    "username": "ranjib",
+    "owner": {
+      "id": 100,
+      "username": "ranjib"
+    },
+    "id": 25760962,
+    "action": "create",
+    "model": "Feed",
+    "data": {
+      "id": 653573,
+      "key": "test-feed",
+      "name": "test-feed",
+      "description": null,
+      "unit_type": null,
+      "unit_symbol": null,
+      "last_value": null,
+      "status": "online",
+      "visibility": "private",
+      "user_id": 100,
+      "created_at": "2017-03-06T22:51:45Z",
+      "updated_at": "2017-03-06T22:51:45Z",
+      "mode": null,
+      "enabled": true,
+      "history": true,
+      "last_value_at": null,
+      "license": null,
+      "status_notify": false,
+      "status_timeout": 60,
+      "old_uuid": null,
+      "uuid": null
+    },
+    "user_id": 100,
+    "created_at": "2017-03-06T22:51:45Z",
+    "updated_at": "2017-03-06T22:51:45Z"
+  },
+  {
+    "username": "ranjib",
+    "owner": {
+      "id": 100,
+      "username": "ranjib"
+    },
+    "id": 25760961,
+    "action": "create",
+    "model": "Group",
+    "data": {
+      "id": 112970,
+      "name": "Default",
+      "key": "default",
+      "description": "This is your default group. It contains all feeds not otherwise grouped.",
+      "properties": null,
+      "user_id": 100,
+      "source": null,
+      "source_keys": null,
+      "created_at": "2017-03-06T22:51:45Z",
+      "updated_at": "2017-03-06T22:51:45Z",
+      "visibility": "private"
+    },
+    "user_id": 100,
+    "created_at": "2017-03-06T22:51:45Z",
+    "updated_at": "2017-03-06T22:51:45Z"
+  }
+]

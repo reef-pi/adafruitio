@@ -1,0 +1,9 @@
+{
+  "id": 0,
+  "name": "string",
+  "color": "string",
+  "username": "string",
+  "time_zone": "string",
+  "created_at": "string",
+  "updated_at": "string"
+}

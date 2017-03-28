@@ -1,0 +1,61 @@
+{
+    "id": 0,
+    "name": "string",
+    "key": "string",
+    "group": {},
+    "groups": [
+      {
+        "id": 0,
+        "name": "string",
+        "description": "string",
+        "feeds": [
+          {}
+        ],
+        "created_at": "string",
+        "updated_at": "string"
+      }
+    ],
+    "description": "string",
+    "details": {
+      "shared_with": [
+        {}
+      ],
+      "data": {
+        "first": {},
+        "last": {},
+        "count": 0
+      }
+    },
+    "unit_type": "string",
+    "unit_symbol": "string",
+    "history": true,
+    "visibility": "private",
+    "license": "string",
+    "enabled": true,
+    "last_value": "string",
+    "status": "string",
+    "status_notify": true,
+    "status_timeout": 0,
+    "created_at": "string",
+    "updated_at": "string"
+  }
+{
+	"username":"ranjib",
+	"owner":{
+		"id":100,
+		"username":"ranjib"
+},
+ "id":653573,
+"name":"test-feed",
+ "description":null,
+ "history":true,
+ "unit_type":null,
+ "unit_symbol":null,
+ "last_value":null,
+ "visibility":"private",
+ "license":null,
+ "created_at":
+"2017-03-06T22:51:45Z",
+ "updated_at":"2017-03-06T22:51:45Z",
+"status_notify":false,
+"status_timeout":60,"key":"test-feed","group":{"id":112970,"key":"default","name":"Default","user_id":100},"groups":[{"id":112970,"key":"default","name":"Default","user_id":100}]}
