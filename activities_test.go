@@ -1,34 +1,26 @@
 package adafruitio
 
 import (
-	"fmt"
-	"net/http"
-	"net/http/httptest"
 	"testing"
 )
 
 func TestDeleteActivities(t *testing.T) {
-	var method, path string
-	h := func(w http.ResponseWriter, r *http.Request) {
-		method = r.Method
-		path = r.RequestURI
-	}
-	s := httptest.NewServer(http.HandlerFunc(h))
-	defer s.Close()
+	m := newMockServer("")
+	defer m.Close()
 
 	c := &Client{
 		authToken:   "fakeToken",
-		apiEndpoint: s.URL,
+		apiEndpoint: m.URL(),
 	}
 
 	if err := c.DeleteActivities("ac1"); err != nil {
 		t.Error(err)
 	}
-	if method != "DELETE" {
-		t.Errorf("Expected: DELETE, Found:%s", method)
+	if m.Method != "DELETE" {
+		t.Errorf("Expected: DELETE, Found:%s", m.Method)
 	}
-	if path != "/ac1/activities" {
-		t.Errorf("Expected: /ac1/activities  Found:%s", path)
+	if m.RequestURI != "/ac1/activities" {
+		t.Errorf("Expected: /ac1/activities  Found:%s", m.RequestURI)
 	}
 }
 
@@ -45,8 +37,42 @@ func TestListActivities(t *testing.T) {
 	activities, err := c.ListActivities("example_user", opt)
 	if err != nil {
 		t.Error(err)
+		return
 	}
-	for _, activity := range activities {
-		fmt.Println(activity.Model, activity.Action, activity.CreatedAt)
+	if len(activities) == 0 {
+		t.Errorf("Expected non-zero activities")
 	}
+	if m.Method != "GET" {
+		t.Errorf("Expected GET. Found:%s", m.Method)
+	}
+	if m.RequestURI != "/example_user/activities?limit=100" {
+		t.Errorf("Expected /example_user/activities?limit=100. Found:%s", m.RequestURI)
+	}
+}
+
+func TestListActivitiesByType(t *testing.T) {
+	m := newMockServer("activities.json")
+	defer m.Close()
+	c := &Client{
+		authToken:   "faketoken",
+		apiEndpoint: m.URL(),
+	}
+	opt := ListActivitiesOptions{
+		Limit: 100,
+	}
+	activities, err := c.ListActivitiesByType("example_user", "xtype", opt)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if len(activities) == 0 {
+		t.Errorf("Expected non-zero activities")
+	}
+	if m.Method != "GET" {
+		t.Errorf("Expected GET. Found:%s", m.Method)
+	}
+	if m.RequestURI != "/example_user/activities/xtype?limit=100" {
+		t.Errorf("Expected /example_user/activities/xtype?limit=100. Found:%s", m.RequestURI)
+	}
+
 }
