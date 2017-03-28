@@ -54,5 +54,4 @@ func (c *Client) ReplaceBlock(u, d, b string, block Block) error {
 func (c *Client) DeleteBlock(u, d, b string) error {
 	_, err := c.delete("/" + u + "/dashboards/" + d + "/blocks/" + b)
 	return err
-	return err
 }

@@ -7,21 +7,13 @@ import (
 	"testing"
 )
 
-type Handler struct {
-}
-
-func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Whats up")
-	fmt.Println(r.Method)
-	fmt.Println(r.URL.Path)
-	fmt.Println(r.URL.RawQuery)
-	for k, v := range r.Header {
-		fmt.Println("Header:", k, "=", v)
+func TestDeleteActivities(t *testing.T) {
+	var method, path string
+	h := func(w http.ResponseWriter, r *http.Request) {
+		method = r.Method
+		path = r.RequestURI
 	}
-}
-
-func TestDeleteActivity(t *testing.T) {
-	s := httptest.NewServer(&Handler{})
+	s := httptest.NewServer(http.HandlerFunc(h))
 	defer s.Close()
 
 	c := &Client{
@@ -32,6 +24,29 @@ func TestDeleteActivity(t *testing.T) {
 	if err := c.DeleteActivities("ac1"); err != nil {
 		t.Error(err)
 	}
-	fmt.Println(s.URL)
+	if method != "DELETE" {
+		t.Errorf("Expected: DELETE, Found:%s", method)
+	}
+	if path != "/ac1/activities" {
+		t.Errorf("Expected: /ac1/activities  Found:%s", path)
+	}
+}
 
+func TestListActivities(t *testing.T) {
+	m := newMockServer("activities.json")
+	defer m.Close()
+	c := &Client{
+		authToken:   "faketoken",
+		apiEndpoint: m.URL(),
+	}
+	opt := ListActivitiesOptions{
+		Limit: 100,
+	}
+	activities, err := c.ListActivities("example_user", opt)
+	if err != nil {
+		t.Error(err)
+	}
+	for _, activity := range activities {
+		fmt.Println(activity.Model, activity.Action, activity.CreatedAt)
+	}
 }
