@@ -4,7 +4,7 @@
 
 ```go
 import(
- "github.com/ranjib/adafruit.io"
+ "github.com/ranjib/adafruitio"
 )
 
 func demo(){
@@ -28,7 +28,7 @@ func demo(){
 
 ## License
 
-Copyright:: Copyright (c) 2016 Ranjib Dey.
+Copyright:: Copyright (c) 2017 Ranjib Dey.
 License:: Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
