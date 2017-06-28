@@ -7,6 +7,7 @@ type Trigger struct {
 func (c *Client) ListTriggers(u string) ([]Trigger, error) {
 	var triggers []Trigger
 	resp, err := c.get("/" + u + "/triggers")
+	defer resp.Body.Close()
 	if err != nil {
 		return triggers, err
 	}
@@ -16,6 +17,7 @@ func (c *Client) ListTriggers(u string) ([]Trigger, error) {
 func (c *Client) GetTrigger(u, t string) (Trigger, error) {
 	var trigger Trigger
 	resp, err := c.get("/" + u + "/triggers/" + t)
+	defer resp.Body.Close()
 	if err != nil {
 		return trigger, err
 	}
@@ -23,21 +25,25 @@ func (c *Client) GetTrigger(u, t string) (Trigger, error) {
 }
 
 func (c *Client) CreateTrigger(u string, t Trigger) error {
-	_, err := c.post("/"+u+"/triggers", t)
+	resp, err := c.post("/"+u+"/triggers", t)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) UpdateTrigger(u, t string, tok Trigger) error {
-	_, err := c.patch("/"+u+"/triggers/"+t, tok)
+	resp, err := c.patch("/"+u+"/triggers/"+t, tok)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) ReplaceTrigger(u, t string, tok Trigger) error {
-	_, err := c.put("/"+u+"/triggers/"+t, tok)
+	resp, err := c.put("/"+u+"/triggers/"+t, tok)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) DeleteTrigger(u, t string) error {
-	_, err := c.delete("/" + u + "/triggers/" + t)
+	resp, err := c.delete("/" + u + "/triggers/" + t)
+	defer resp.Body.Close()
 	return err
 }

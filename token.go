@@ -7,6 +7,7 @@ type Token struct {
 func (c *Client) ListTokens(u string) ([]Token, error) {
 	var tokens []Token
 	resp, err := c.get("/" + u + "/tokens")
+	defer resp.Body.Close()
 	if err != nil {
 		return tokens, err
 	}
@@ -16,6 +17,7 @@ func (c *Client) ListTokens(u string) ([]Token, error) {
 func (c *Client) GetToken(u, t string) (Token, error) {
 	var token Token
 	resp, err := c.get("/" + u + "/tokens/" + t)
+	defer resp.Body.Close()
 	if err != nil {
 		return token, err
 	}
@@ -23,21 +25,25 @@ func (c *Client) GetToken(u, t string) (Token, error) {
 }
 
 func (c *Client) CreateToken(u string, t Token) error {
-	_, err := c.post("/"+u+"/tokens", t)
+	resp, err := c.post("/"+u+"/tokens", t)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) UpdateToken(u, t string, tok Token) error {
-	_, err := c.patch("/"+u+"/tokens/"+t, tok)
+	resp, err := c.patch("/"+u+"/tokens/"+t, tok)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) ReplaceToken(u, t string, tok Token) error {
-	_, err := c.put("/"+u+"/tokens/"+t, tok)
+	resp, err := c.put("/"+u+"/tokens/"+t, tok)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) DeleteToken(u, t string) error {
-	_, err := c.delete("/" + u + "/tokens/" + t)
+	resp, err := c.delete("/" + u + "/tokens/" + t)
+	defer resp.Body.Close()
 	return err
 }
