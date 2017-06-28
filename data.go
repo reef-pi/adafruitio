@@ -13,7 +13,7 @@ type ListDataOptions struct {
 
 type Data struct {
 	ID           int     `json:"id,omitempty"`
-	Value        int     `json:"value,omitempty"`
+	Value        int     `json:"value"`
 	Feed         int     `json:"feed_id,omitempty"`
 	Group        int     `json:"group_id,omitempty"`
 	Expiration   string  `json:"expiration,omitempty"`
