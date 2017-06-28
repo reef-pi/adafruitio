@@ -12,6 +12,7 @@ type User struct {
 func (c *Client) GetUser() (User, error) {
 	var u User
 	resp, err := c.get("/user")
+	defer resp.Body.Close()
 	if err != nil {
 		return u, err
 	}

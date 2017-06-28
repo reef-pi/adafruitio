@@ -12,6 +12,7 @@ type Group struct {
 func (c *Client) ListGroups(u string) ([]Group, error) {
 	var groups []Group
 	resp, err := c.get("/" + u + "/groups")
+	defer resp.Body.Close()
 	if err != nil {
 		return groups, err
 	}
@@ -19,18 +20,21 @@ func (c *Client) ListGroups(u string) ([]Group, error) {
 }
 
 func (c *Client) CreateGroup(u string, g Group) error {
-	_, err := c.post("/"+u+"/groups", g)
+	resp, err := c.post("/"+u+"/groups", g)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) DeleteGroup(u, g string) error {
-	_, err := c.delete("/" + u + "/groups/" + g)
+	resp, err := c.delete("/" + u + "/groups/" + g)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) GetGroup(u, g string) (Group, error) {
 	var group Group
 	resp, err := c.get("/" + u + "/groups/" + g)
+	defer resp.Body.Close()
 	if err != nil {
 		return group, err
 	}
@@ -38,11 +42,13 @@ func (c *Client) GetGroup(u, g string) (Group, error) {
 }
 
 func (c *Client) UpdateGroup(u, g string, group Group) error {
-	_, err := c.patch("/"+u+"/groups/"+g, group)
+	resp, err := c.patch("/"+u+"/groups/"+g, group)
+	defer resp.Body.Close()
 	return err
 }
 
 func (c *Client) ReplaceGroup(u, g string, group Group) error {
-	_, err := c.put("/"+u+"/groups/"+g, group)
+	resp, err := c.put("/"+u+"/groups/"+g, group)
+	defer resp.Body.Close()
 	return err
 }

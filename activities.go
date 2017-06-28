@@ -32,7 +32,8 @@ type ListActivitiesOptions struct {
 
 // DeleteActivities deletes a given user's activity
 func (c *Client) DeleteActivities(u string) error {
-	_, err := c.delete("/" + u + "/activities")
+	resp, err := c.delete("/" + u + "/activities")
+	defer resp.Body.Close()
 	return err
 }
 
@@ -44,6 +45,7 @@ func (c *Client) ListActivities(u string, o ListActivitiesOptions) ([]Activity, 
 		return activities, err
 	}
 	resp, err := c.get("/" + u + "/activities?" + v.Encode())
+	defer resp.Body.Close()
 	if err != nil {
 		return activities, err
 	}
@@ -58,6 +60,7 @@ func (c *Client) ListActivitiesByType(u, t string, o ListActivitiesOptions) ([]A
 		return activities, err
 	}
 	resp, err := c.get("/" + u + "/activities/" + t + "?" + v.Encode())
+	defer resp.Body.Close()
 	if err != nil {
 		return activities, err
 	}
