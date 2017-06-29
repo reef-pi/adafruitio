@@ -36,7 +36,9 @@ type Feed struct {
 func (c *Client) ListFeeds(u string) ([]Feed, error) {
 	var feeds []Feed
 	resp, err := c.get("/" + u + "/feeds")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return feeds, err
 	}
@@ -45,20 +47,26 @@ func (c *Client) ListFeeds(u string) ([]Feed, error) {
 
 func (c *Client) CreateFeed(u string, f Feed) error {
 	resp, err := c.post("/"+u+"/feeds", f)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) DeletFeed(u, f string) error {
 	resp, err := c.delete("/" + u + "/feeds/" + f)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) GetFeed(u, f string) (Feed, error) {
 	var feed Feed
 	resp, err := c.get("/" + u + "/feeds/" + f)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return feed, err
 	}
@@ -67,20 +75,26 @@ func (c *Client) GetFeed(u, f string) (Feed, error) {
 
 func (c *Client) UpdateFeed(u, f string, feed Feed) error {
 	resp, err := c.patch("/"+u+"/feeds/"+f, feed)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ReplaceFeed(u, f string, feed Feed) error {
 	resp, err := c.put("/"+u+"/feeds/"+f, feed)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) GetFeedDetails(u, f string) (Feed, error) {
 	var feed Feed
 	resp, err := c.get("/" + u + "/feeds/" + f + "/details")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return feed, err
 	}
@@ -89,20 +103,26 @@ func (c *Client) GetFeedDetails(u, f string) (Feed, error) {
 
 func (c *Client) AddFeedToGroup(u, g, f string) error {
 	resp, err := c.post("/"+u+"/groups/"+g+"/add?feed_key="+f, nil)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) RemoveFeedFromGroup(u, g, f string) error {
 	resp, err := c.post("/"+u+"/groups/"+g+"/remove?feed_key="+f, nil)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ListFeedsFromGroup(u, g string) ([]Feed, error) {
 	var feeds []Feed
 	resp, err := c.get("/" + u + "/groups/" + g + "/feeds")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return feeds, err
 	}
@@ -111,6 +131,8 @@ func (c *Client) ListFeedsFromGroup(u, g string) ([]Feed, error) {
 
 func (c *Client) CreateFeedInGroup(u, g string, feed Feed) error {
 	resp, err := c.post("/"+u+"/groups/"+g+"/feeds", feed)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
