@@ -21,7 +21,9 @@ type Block struct {
 func (c *Client) ListBlocks(u, d string) ([]Block, error) {
 	var blocks []Block
 	resp, err := c.get("/" + u + "/dashboards/" + d + "/blocks")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return blocks, err
 	}
@@ -31,7 +33,9 @@ func (c *Client) ListBlocks(u, d string) ([]Block, error) {
 func (c *Client) GetBlock(u, d, b string) (Block, error) {
 	var block Block
 	resp, err := c.get("/" + u + "/dashboards/" + d + "/blocks/" + b)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return block, err
 	}
@@ -40,24 +44,32 @@ func (c *Client) GetBlock(u, d, b string) (Block, error) {
 
 func (c *Client) CreateBlock(u, d string, b Block) error {
 	resp, err := c.post("/"+u+"/dashboards/"+d+"/blocks", b)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) UpdateBlock(u, d, b string, block Block) error {
 	resp, err := c.patch("/"+u+"/dashboards/"+d+"/blocks/"+b, block)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ReplaceBlock(u, d, b string, block Block) error {
 	resp, err := c.put("/"+u+"/dashboards/"+d+"/blocks/"+b, block)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) DeleteBlock(u, d, b string) error {
 	resp, err := c.delete("/" + u + "/dashboards/" + d + "/blocks/" + b)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }

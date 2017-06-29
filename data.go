@@ -33,7 +33,9 @@ func (c *Client) ListData(u, f string, o ListDataOptions) ([]Data, error) {
 		return dataList, err
 	}
 	resp, err := c.get("/" + u + "/feeds/" + f + "/data?" + v.Encode())
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 
 	if err != nil {
 		return dataList, err
@@ -43,20 +45,26 @@ func (c *Client) ListData(u, f string, o ListDataOptions) ([]Data, error) {
 
 func (c *Client) SubmitData(u, f string, d Data) error {
 	resp, err := c.post("/"+u+"/feeds/"+f+"/data", d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) SubmitDataInBatch(u, f string, d []Data) error {
 	resp, err := c.post("/"+u+"/feeds/"+f+"/data/batch", d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) PreviousDataInQueue(u, f string) (Data, error) {
 	var d Data
 	resp, err := c.get("/" + u + "/feeds/" + f + "/data/previous")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return d, err
 	}
@@ -66,7 +74,9 @@ func (c *Client) PreviousDataInQueue(u, f string) (Data, error) {
 func (c *Client) NextDataInQueue(u, f string) (Data, error) {
 	var d Data
 	resp, err := c.get("/" + u + "/feeds/" + f + "/data/next")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return d, err
 	}
@@ -76,7 +86,9 @@ func (c *Client) NextDataInQueue(u, f string) (Data, error) {
 func (c *Client) LastDataInQueue(u, f string) (Data, error) {
 	var d Data
 	resp, err := c.get("/" + u + "/feeds/" + f + "/data/last")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return d, err
 	}
@@ -85,14 +97,18 @@ func (c *Client) LastDataInQueue(u, f string) (Data, error) {
 
 func (c *Client) DeleteData(u, f, id string) error {
 	resp, err := c.delete("/" + u + "/feeds/" + f + "/data/" + id)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) GetData(u, f, id string) (Data, error) {
 	var d Data
 	resp, err := c.get("/" + u + "/feeds/" + f + "/data/" + id)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return d, err
 	}
@@ -101,20 +117,26 @@ func (c *Client) GetData(u, f, id string) (Data, error) {
 
 func (c *Client) UpdateData(u, f, id string, d Data) error {
 	resp, err := c.patch("/"+u+"/feeds/"+f+"/data/"+id, d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ReplaceData(u, f, id string, d Data) error {
 	resp, err := c.put("/"+u+"/feeds/"+f+"/data/"+id, d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ListDataFromGroup(u, g, f string) ([]Data, error) {
 	var dataList []Data
 	resp, err := c.get("/" + u + "/groups/" + g + "/feeds/" + f + "/data")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return dataList, err
 	}
@@ -123,12 +145,16 @@ func (c *Client) ListDataFromGroup(u, g, f string) ([]Data, error) {
 
 func (c *Client) SubmitDataInGroup(u, g, f string, d Data) error {
 	resp, err := c.post("/"+u+"/groups/"+g+"/feeds/"+f+"/data", d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) SubmitDataInGroupInBatch(u, g, f string, d []Data) error {
 	resp, err := c.post("/"+u+"/groups/"+g+"/feeds/"+f+"/data/batch", d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }

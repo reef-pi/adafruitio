@@ -14,7 +14,9 @@ type Permission struct {
 func (c *Client) ListPermissions(u, t string) ([]Permission, error) {
 	var permissions []Permission
 	resp, err := c.get("/" + u + "/type/" + t + "/acl")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return permissions, err
 	}
@@ -23,24 +25,32 @@ func (c *Client) ListPermissions(u, t string) ([]Permission, error) {
 
 func (c *Client) CreatePermission(u, t string, p Permission) error {
 	resp, err := c.post("/"+u+"/type/"+t+"/acl", p)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) UpdatePermission(u, t, a string, p Permission) error {
 	resp, err := c.patch("/"+u+"/type/"+t+"/acl/"+a, p)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ReplacePermission(u, t, a string, p Permission) error {
 	resp, err := c.put("/"+u+"/type/"+t+"/acl/"+a, p)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) DeletePermission(u, t, a string) error {
 	resp, err := c.delete("/" + u + "/type/" + t + "/acl/" + a)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }

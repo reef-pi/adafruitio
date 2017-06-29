@@ -10,7 +10,9 @@ type Dashboard struct {
 func (c *Client) ListDashboards(u string) ([]Dashboard, error) {
 	var dashboards []Dashboard
 	resp, err := c.get("/" + u + "/dashboards")
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return dashboards, err
 	}
@@ -19,20 +21,26 @@ func (c *Client) ListDashboards(u string) ([]Dashboard, error) {
 
 func (c *Client) CreateDashboard(u string, d Dashboard) error {
 	resp, err := c.post("/"+u+"/dashboards", d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) DeleteDashboard(u, d string) error {
 	resp, err := c.delete("/" + u + "/dashboards/" + d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) GetDashboard(u, d string) (Dashboard, error) {
 	var dashboard Dashboard
 	resp, err := c.get("/" + u + "/dashboards/" + d)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return dashboard, err
 	}
@@ -41,12 +49,16 @@ func (c *Client) GetDashboard(u, d string) (Dashboard, error) {
 
 func (c *Client) UpdateDashboard(u, d string, dashboard Dashboard) error {
 	resp, err := c.patch("/"+u+"/dashboards/"+d, dashboard)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
 
 func (c *Client) ReplaceDashboard(u, d string, dashboard Dashboard) error {
 	resp, err := c.put("/"+u+"/dashboards/"+d, dashboard)
-	defer resp.Body.Close()
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	return err
 }
