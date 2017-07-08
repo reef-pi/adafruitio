@@ -12,18 +12,18 @@ type ListDataOptions struct {
 }
 
 type Data struct {
-	ID           int     `json:"id,omitempty"`
-	Value        int     `json:"value"`
-	Feed         int     `json:"feed_id,omitempty"`
-	Group        int     `json:"group_id,omitempty"`
-	Expiration   string  `json:"expiration,omitempty"`
-	Lattitude    float32 `json:"lat,omitempty"`
-	Longitude    float32 `json:"lon,omitempty"`
-	Element      float32 `json:"ele,omitempty"`
-	CompletedAt  string  `json:"completed_at,omitempty"`
-	CreatedAt    string  `json:"created_at,omitempty"`
-	UpdatedAt    string  `json:"updated_at,omitempty"`
-	CreatedEPOCH string  `json:"epoch,omitempty"`
+	ID           int         `json:"id,omitempty"`
+	Value        interface{} `json:"value"`
+	Feed         int         `json:"feed_id,omitempty"`
+	Group        int         `json:"group_id,omitempty"`
+	Expiration   string      `json:"expiration,omitempty"`
+	Lattitude    float32     `json:"lat,omitempty"`
+	Longitude    float32     `json:"lon,omitempty"`
+	Element      float32     `json:"ele,omitempty"`
+	CompletedAt  string      `json:"completed_at,omitempty"`
+	CreatedAt    string      `json:"created_at,omitempty"`
+	UpdatedAt    string      `json:"updated_at,omitempty"`
+	CreatedEPOCH string      `json:"epoch,omitempty"`
 }
 
 func (c *Client) ListData(u, f string, o ListDataOptions) ([]Data, error) {
