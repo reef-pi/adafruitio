@@ -1,5 +1,11 @@
 ## go client for adafruit.io
 
+This library provides a go client for [v2 adafruit.io rest API](https://io.adafruit.com/api/docs/#!/v2). Adafruit.io
+provides an easy way to log and chart data originting from IoT devices. It can also send webhooks or emails (called
+as triggers) based on data.
+
+Adafruit.com provides a comprehensive [tutorial](https://learn.adafruit.com/adafruit-io/overview) for adafruit.io services.
+
 ## Usage
 
 ```go
