@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/davecgh/go-spew/spew"
-	a "github.com/ranjib/adafruitio"
+	a "github.com/reef-pi/adafruitio"
 	"log"
 )
 
