@@ -25,7 +25,10 @@ func NewClient(token string) *Client {
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
 	endpoint := c.apiEndpoint + path
-	req, _ := http.NewRequest(method, endpoint, body)
+	req, err := http.NewRequest(method, endpoint, body)
+	if err != nil {
+		return nil, err
+	}
 	req.Header.Set("Accept", "application/json")
 	if headers != nil {
 		for k, v := range *headers {
@@ -39,15 +42,15 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != 200 {
-		d, e := ioutil.ReadAll(resp.Body)
-		defer resp.Body.Close()
-		if e != nil {
-			return resp, fmt.Errorf("HTTP Code: %d. Failed to read response body. Error: %s", resp.StatusCode, e)
-		}
-		return resp, fmt.Errorf(string(d))
+	if (resp.StatusCode >= 200) && (resp.StatusCode < 300) {
+		return resp, nil
 	}
-	return resp, nil
+	d, e := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	if e != nil {
+		return resp, fmt.Errorf("HTTP Code: %d. Failed to read response body. Error: %s", resp.StatusCode, e)
+	}
+	return resp, fmt.Errorf(string(d))
 }
 
 func (c *Client) decodeJSON(resp *http.Response, payload interface{}) error {

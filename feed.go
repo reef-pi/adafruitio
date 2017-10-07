@@ -53,7 +53,7 @@ func (c *Client) CreateFeed(u string, f Feed) error {
 	return err
 }
 
-func (c *Client) DeletFeed(u, f string) error {
+func (c *Client) DeleteFeed(u, f string) error {
 	resp, err := c.delete("/" + u + "/feeds/" + f)
 	if resp != nil {
 		defer resp.Body.Close()
